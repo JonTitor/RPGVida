@@ -9,34 +9,33 @@
 
     <Button
         android:id="@+id/btnNovo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
+        android:layout_marginTop="40dp"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
-        android:layout_marginTop="31dp"
-        android:text="Nova Missão" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/btnPerfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnNovo"
-        android:layout_alignBottom="@+id/btnNovo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp"
+        android:text=""
+        android:layout_above="@+id/frameLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:text="Perfil" />
+        android:layout_alignParentStart="true" />
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/btnNovo"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="23dp">
+            android:layout_marginTop="23dp"
+            android:id="@+id/frameLayout">
 
             <ListView
                 android:id="@+id/lista"
@@ -48,11 +47,8 @@
         android:id="@+id/txtNivel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="TextView"
         android:layout_above="@+id/btnPerfil"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_toLeftOf="@+id/btnNovo"
-        android:layout_toStartOf="@+id/btnNovo"
-        android:text="TextView" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

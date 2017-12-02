@@ -23,12 +23,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //Nivel main
         TextView txtNivel = (TextView) findViewById(R.id.txtNivel);
         txtNivel.setText("NIVEL:" + Utilitaria.RetornaNivel(2000000000)); // pega nivel do banco
 
         //Abre tela para novo cadastro de missoes
         Button btnNovo =(Button) findViewById(R.id.btnNovo);
+        btnNovo.setBackgroundResource(R.drawable.ic_assignment_black_36dp);
         btnNovo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,8 +39,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //////////////////////////////
+
         //Abre tela para novo cadastro de perfil
-//        Button btnPerfil =(Button) findViewById(R.id.btnPerfil);
+        Button btnPerfil =(Button) findViewById(R.id.btnPerfil);
+        btnPerfil.setBackgroundResource(R.drawable.ic_face_black_36dp);
 //        btnNovo.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 //        });
         //////////////////////////////
 
-        List<Missao> missoes = new ArrayList<Missao>(); //pegando via protobuff mais tarde
+        final List<Missao> missoes = new ArrayList<Missao>(); //pegando via protobuff mais tarde
         missoes.add(teste());
         missoes.add(teste());
         missoes.add(teste());
@@ -55,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
         missoes.add(teste());
         missoes.add(teste());
 
-        ListView listaDeMissao = (ListView) findViewById(R.id.lista);
+         ListView listaDeMissao = (ListView) findViewById(R.id.lista);
 
         //chamada da implementaçao do android:
         //ArrayAdapter<Curso> adapter = new ArrayAdapter<Curso>(this,
         //android.R.layout.simple_list_item_1, cursos);
 
         //chamada da nossa implementação
-        AdapterMissaoPersonalizado adapter =
+        final AdapterMissaoPersonalizado adapter =
                 new AdapterMissaoPersonalizado(missoes, this);
 
         listaDeMissao.setAdapter(adapter);
@@ -70,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
         listaDeMissao.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Dialog();
+                String nome = ((TextView) view.findViewById(R.id.txvNome)).getText().toString();
+                String descricao = ((TextView) view.findViewById(R.id.txvDescricao)).getText().toString();
+                Dialog(nome,descricao);
 
             }
         });
@@ -86,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
         return teste;
     }
 
-    public void Dialog(){
+    public void Dialog(String nome ,String descricao){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("teste")
-                .setTitle("Teste")
+        builder.setMessage(descricao)
+                .setTitle(nome)
                 .setNegativeButton("Não feito!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
