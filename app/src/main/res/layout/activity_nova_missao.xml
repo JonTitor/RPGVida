@@ -71,15 +71,13 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
+            android:layout_marginTop="17dp"
             android:text="Nova Missão"
             android:textSize="30sp"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/textDescricao"
-            android:layout_toEndOf="@+id/textDescricao"
-            android:layout_marginLeft="50dp"
-            android:layout_marginStart="50dp" />
+            android:layout_toLeftOf="@+id/btnSalvarNovaMissao"
+            android:layout_toStartOf="@+id/btnSalvarNovaMissao" />
 
 
 
@@ -96,7 +94,7 @@
         <Button
             android:id="@+id/btnSalvarNovaMissao"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/spinner"
