@@ -4,7 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
-import java.util.ArrayList;
+import com.puzzle.rpgvida.db.MissaoDB;
+
 import java.util.List;
 
 /**
@@ -17,13 +18,8 @@ public class ListaDeMissaoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<Missao> missoes = new ArrayList<Missao>(); //pegando via protobuff mais tarde
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
+        MissaoDB missaoDB = new MissaoDB(this);
+        List<Missao> missoes = missaoDB.findAll();
 
         ListView listaDeMissao = (ListView) findViewById(R.id.lista);
 

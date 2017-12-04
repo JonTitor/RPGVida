@@ -12,8 +12,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.puzzle.rpgvida.Utilitarios.Utilitaria;
+import com.puzzle.rpgvida.db.MissaoDB;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,13 +51,9 @@ public class MainActivity extends AppCompatActivity {
 //        });
         //////////////////////////////
 
-        final List<Missao> missoes = new ArrayList<Missao>(); //pegando via protobuff mais tarde
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
-        missoes.add(teste());
+
+        MissaoDB missaoDB = new MissaoDB(this);
+         final List<Missao> missoes = missaoDB.findAll();
 
          ListView listaDeMissao = (ListView) findViewById(R.id.lista);
 
