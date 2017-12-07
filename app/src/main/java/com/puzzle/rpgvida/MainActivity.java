@@ -17,10 +17,22 @@ import com.puzzle.rpgvida.db.MissaoDB;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    public static MainActivity INSTANCE = null;
 
+    public static synchronized MainActivity getInstance(){
+        if(INSTANCE == null){
+            INSTANCE = new MainActivity();
+        }
+        return INSTANCE;
+    }
+
+    private static synchronized void setInstance(MainActivity main){
+        INSTANCE = main;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setInstance(this);
         setContentView(R.layout.activity_main);
 
 
@@ -36,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainActivity.this, NovaMissaoActivity.class);
                 MainActivity.this.startActivity(myIntent);
+                MainActivity.this.atualizaListView();
             }
         });
         //////////////////////////////
@@ -51,11 +64,17 @@ public class MainActivity extends AppCompatActivity {
 //        });
         //////////////////////////////
 
+        this.atualizaListView();
 
+
+    }
+
+
+    public void atualizaListView(){
         MissaoDB missaoDB = new MissaoDB(this);
-         final List<Missao> missoes = missaoDB.findAll();
+        final List<Missao> missoes = missaoDB.findAllOpen();
 
-         ListView listaDeMissao = (ListView) findViewById(R.id.lista);
+        final ListView listaDeMissao = (ListView) findViewById(R.id.lista);
 
         //chamada da implementaçao do android:
         //ArrayAdapter<Curso> adapter = new ArrayAdapter<Curso>(this,
@@ -70,28 +89,17 @@ public class MainActivity extends AppCompatActivity {
         listaDeMissao.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String nome = ((TextView) view.findViewById(R.id.txvNome)).getText().toString();
-                String descricao = ((TextView) view.findViewById(R.id.txvDescricao)).getText().toString();
-                Dialog(nome,descricao);
+                AdapterMissaoPersonalizado adapter2 = (AdapterMissaoPersonalizado) adapterView.getAdapter();
+                Missao m = (Missao) adapter2.getItem(i);
+                Dialog(m);
 
             }
         });
-
     }
-
-
-    public Missao teste(){
-        Missao teste = new Missao();
-        teste.setNome("TESTE");
-        teste.setDescricao("Veneno, sangue de vigem, olhos de cabra, uma pitada de sal do imalaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        teste.setDificuldade(3);
-        return teste;
-    }
-
-    public void Dialog(String nome ,String descricao){
+    public void Dialog(final Missao missao){
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage(descricao)
-                .setTitle(nome)
+        builder.setMessage(missao.getDescricao())
+                .setTitle(missao.getNome())
                 .setNegativeButton("Não feito!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -101,7 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton("Feito", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        MissaoDB missaoDB = new MissaoDB(MainActivity.this);
+                        missao.setFeito(true);
+                        missaoDB.setMissaoFeito(missao);
+                        MainActivity.this.atualizaListView();
                     }
                 });
 

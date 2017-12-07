@@ -42,9 +42,7 @@ public class NovaMissaoActivity extends AppCompatActivity {
 
         Button btnSalvar = (Button) findViewById(R.id.btnSalvarNovaMissao);
 
-
-
-        missaoDB = new MissaoDB(this);
+        final MissaoDB missaoDB = new MissaoDB(this);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,11 +60,10 @@ public class NovaMissaoActivity extends AppCompatActivity {
                     //atualizar tela principal
                     NovaMissaoActivity.this.finish();
                 }
-
-
-
-
+                MainActivity.getInstance().atualizaListView();
             }
         });
+
+
     }
 }

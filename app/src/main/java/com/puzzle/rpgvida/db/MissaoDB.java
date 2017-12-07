@@ -77,6 +77,7 @@ public class MissaoDB extends SQLiteOpenHelper {
             String _id = String.valueOf(missao.getId());
             String[] whereArgs = new String[]{_id};
             int count = db.update("missao", values, "_id=?", whereArgs);
+            Log.i(TAG, "Finalizou [" + count + "] registro. _id = "+_id);
             return true;
 
         } catch (Exception e){
@@ -102,6 +103,24 @@ public class MissaoDB extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         try {
             Cursor c = db.query("missao", null, null, null, null, null, null, null);
+            return toList(c);
+        } finally {
+            db.close();
+        }
+    }
+    public List<Missao> findAllOpen() {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            Cursor c = db.query("missao", null, "feito=0", null, null, null, null, null);
+            return toList(c);
+        } finally {
+            db.close();
+        }
+    }
+    public List<Missao> findAllClose() {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            Cursor c = db.query("missao", null, "feito=1", null, null, null, null, null);
             return toList(c);
         } finally {
             db.close();

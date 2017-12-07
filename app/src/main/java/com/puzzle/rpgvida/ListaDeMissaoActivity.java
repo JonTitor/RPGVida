@@ -19,7 +19,7 @@ public class ListaDeMissaoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MissaoDB missaoDB = new MissaoDB(this);
-        List<Missao> missoes = missaoDB.findAll();
+        List<Missao> missoes = missaoDB.findAllOpen();
 
         ListView listaDeMissao = (ListView) findViewById(R.id.lista);
 
