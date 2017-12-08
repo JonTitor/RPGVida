@@ -5,14 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.puzzle.rpgvida.Perfil;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by acneidert on 04/12/17.
@@ -20,7 +17,7 @@ import static android.content.ContentValues.TAG;
 
 public class PerfilDB extends SQLiteOpenHelper {
     public static final String NOME_BANCO = "rpgvida.sqlite";
-    private static final int VERSAO_BANCO = 1;
+    private static final int VERSAO_BANCO = 4;
 
     public PerfilDB(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
@@ -58,7 +55,6 @@ public class PerfilDB extends SQLiteOpenHelper {
                 int count = db.update("perfil", values, "_id=?", whereArgs);
                 return true;
             } else {
-                values.put("feito", 0);
                 id = db.insert("perfil", "", values);
                 return true;
             }
@@ -135,10 +131,11 @@ public class PerfilDB extends SQLiteOpenHelper {
 
     public Perfil findByID(int id) {
         SQLiteDatabase db = getWritableDatabase();
-        Perfil perfil =  new Perfil();
+        Perfil perfil =  new Perfil(true);
         try {
             Cursor c = db.query("perfil", null,"_id=?", new String[]{id+""} , null, null, null, null);
             if (c.moveToFirst()) {
+                //Toast.makeText(MainActivity.getInstance(), "AQUI", Toast.LENGTH_LONG).show();
                 perfil.setId(c.getLong(c.getColumnIndex("_id")));
                 perfil.setNome(c.getString(c.getColumnIndex("nome")));
                 perfil.setUser(c.getString(c.getColumnIndex("user")));

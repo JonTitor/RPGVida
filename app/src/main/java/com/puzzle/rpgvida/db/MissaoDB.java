@@ -20,7 +20,7 @@ import static android.content.ContentValues.TAG;
 
 public class MissaoDB extends SQLiteOpenHelper {
     public static final String NOME_BANCO = "rpgvida.sqlite";
-    private static final int VERSAO_BANCO = 1;
+    private static final int VERSAO_BANCO = 4;
 
     public MissaoDB(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);

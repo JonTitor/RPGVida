@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.puzzle.rpgvida.Utilitarios.Utilitaria;
 import com.puzzle.rpgvida.db.MissaoDB;
@@ -38,15 +39,17 @@ public class MainActivity extends AppCompatActivity {
         this.setInstance(this);
         setContentView(R.layout.activity_main);
 
-        PerfilDB perfilDB = new PerfilDB(this);
+        PerfilDB perfilDB = new PerfilDB(MainActivity.this);
 
-//        if (){
-//            Intent myIntent = new Intent(MainActivity.this, CriarPerfilActivity.class);
-//            MainActivity.this.startActivity(myIntent);
-//
-//        }
+        Session.setPerfil(perfilDB.findByID(1));
 
+        Toast.makeText(this, "User : "+Session.getPerfil().getNome(), Toast.LENGTH_LONG).show();
 
+        if (Session.getPerfil().getId() == 0){
+            Intent myIntent = new Intent(MainActivity.this, CriarPerfilActivity.class);
+            MainActivity.this.startActivity(myIntent);
+
+        }
 
         //Nivel main
         TextView txtNivel = (TextView) findViewById(R.id.txtNivel);
@@ -129,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                         missaoDB.setMissaoFeito(missao);
                         MainActivity.this.atualizaListView();
                         PerfilDB perfilDB = new PerfilDB(MainActivity.this);
-                        perfilDB.
+                        //perfilDB.
                     }
                 });
 
