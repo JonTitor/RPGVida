@@ -19,8 +19,8 @@ import static android.content.ContentValues.TAG;
  */
 
 public class MissaoDB extends SQLiteOpenHelper {
-    public static final String NOME_BANCO = "rpgvida.sqlite";
-    private static final int VERSAO_BANCO = 4;
+    public static final String NOME_BANCO = "rpgvida_1.sqlite";
+    private static final int VERSAO_BANCO =4;
 
     public MissaoDB(Context context) {
         super(context, NOME_BANCO, null, VERSAO_BANCO);
@@ -28,17 +28,17 @@ public class MissaoDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table if not exists missao (" +
-                        "_id integer PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , " +
-                        "nome text, " +
-                        "desc text, " +
-                        "dificuldade integer, " +
-                        "feito integer NOT NULL  DEFAULT 0);");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("drop table missao;create table if not exists missao (" +
+                "_id integer PRIMARY KEY  AUTOINCREMENT  NOT NULL  UNIQUE , " +
+                "nome text, " +
+                "desc text, " +
+                "dificuldade integer, " +
+                "feito integer NOT NULL  DEFAULT 0);");
     }
 
     public boolean saveMissao(Missao missao){

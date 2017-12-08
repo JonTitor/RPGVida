@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.puzzle.rpgvida.Utilitarios.Utilitaria;
 import com.puzzle.rpgvida.db.MissaoDB;
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         Session.setPerfil(perfilDB.findByID(1));
 
-        Toast.makeText(this, "User : "+Session.getPerfil().getNome(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "User : "+Session.getPerfil().getNome(), Toast.LENGTH_LONG).show();
 
         if (Session.getPerfil().getId() == 0){
             Intent myIntent = new Intent(MainActivity.this, CriarPerfilActivity.class);
@@ -52,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Nivel main
-        TextView txtNivel = (TextView) findViewById(R.id.txtNivel);
-        txtNivel.setText("NIVEL:" + Utilitaria.RetornaNivel(1)); // pega nivel do banco
+
+
 
         //Abre tela para novo cadastro de missoes
         Button btnNovo =(Button) findViewById(R.id.btnNovo);
@@ -89,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void atualizaListView(){
+        TextView txtNivel = (TextView) findViewById(R.id.txtNivel);
+        txtNivel.setText("NIVEL:" + Utilitaria.RetornaNivel(Session.getPerfil().getXp())); // pega nivel do banco
         MissaoDB missaoDB = new MissaoDB(this);
         final List<Missao> missoes = missaoDB.findAllOpen();
 
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         PerfilDB perfilDB = new PerfilDB(MainActivity.this);
                         Session.getPerfil().incXp(missao.getDificuldade());
                         perfilDB.savePerfil(Session.getPerfil());
+
                     }
                 });
 

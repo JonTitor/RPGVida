@@ -93,6 +93,6 @@ public class Perfil {
     }
 
     public void incXp(double dificuldade) {
-        this.xp = (int) ((dificuldade*100)* Integer.parseInt((Utilitaria.RetornaNivel(xp) + "")));
+        this.xp = xp + (int) ((dificuldade*100)* Integer.parseInt((Utilitaria.RetornaNivel(xp) + "")));
     }
 }

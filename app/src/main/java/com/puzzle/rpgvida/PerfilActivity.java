@@ -28,10 +28,10 @@ public class PerfilActivity extends AppCompatActivity {
         tvXp = (TextView) findViewById(R.id.tvXp);
         tvXpTotal = (TextView) findViewById(R.id.tvXpTotal);
 
-        tvNome.setText("Dieisson");
-        tvUsuario.setText("D1");
-        tvXp.setText(Utilitaria.RetornaNivel(1)+"");
-        tvXpTotal.setText(""+1);
+        tvNome.setText(Session.getPerfil().getNome());
+        tvUsuario.setText(Session.getPerfil().getUser());
+        tvXp.setText(Utilitaria.RetornaNivel(Session.getPerfil().getXp())+"");
+        tvXpTotal.setText(""+Session.getPerfil().getXp());
         //txtXP = (TextView) findViewById(R.id.)//
 
 

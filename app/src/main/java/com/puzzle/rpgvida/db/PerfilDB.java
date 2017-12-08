@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 public class PerfilDB extends SQLiteOpenHelper {
-    public static final String NOME_BANCO = "rpgvida.sqlite";
+    public static final String NOME_BANCO = "rpgvida_1.sqlite";
     private static final int VERSAO_BANCO = 4;
 
     public PerfilDB(Context context) {
