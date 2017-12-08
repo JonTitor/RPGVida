@@ -132,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
                         missaoDB.setMissaoFeito(missao);
                         MainActivity.this.atualizaListView();
                         PerfilDB perfilDB = new PerfilDB(MainActivity.this);
-                        //perfilDB.
+                        Session.getPerfil().incXp(missao.getDificuldade());
+                        perfilDB.savePerfil(Session.getPerfil());
                     }
                 });
 

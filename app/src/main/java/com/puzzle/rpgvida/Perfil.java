@@ -1,5 +1,7 @@
 package com.puzzle.rpgvida;
 
+import com.puzzle.rpgvida.Utilitarios.Utilitaria;
+
 /**
  * Created by acneidert on 04/12/17.
  */
@@ -88,5 +90,9 @@ public class Perfil {
 
     public void setXp(int xp) {
         this.xp = xp;
+    }
+
+    public void incXp(double dificuldade) {
+        this.xp = (int) ((dificuldade*100)* Integer.parseInt((Utilitaria.RetornaNivel(xp) + "")));
     }
 }
