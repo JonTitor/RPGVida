@@ -26,6 +26,16 @@ public class Perfil {
     public Perfil(long id) {
         this.id = id;
     }
+    public Perfil(boolean createNull) {
+        if(createNull){
+            id = 0;
+            nome = null;
+            user = null;
+            senha = null;
+            xp = 0;
+            isLogged = false;
+        }
+    }
 
     public Perfil(String user, String senha) {
         this.user = user;
