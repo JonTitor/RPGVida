@@ -17,7 +17,7 @@ class Session {
 
     public static Perfil getPerfil(){
         if(perfil == null){
-            perfil = new Perfil(True);
+            perfil = new Perfil(true);
         }
         return perfil;
     }

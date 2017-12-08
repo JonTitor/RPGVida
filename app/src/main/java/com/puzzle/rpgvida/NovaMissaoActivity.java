@@ -32,7 +32,7 @@ public class NovaMissaoActivity extends AppCompatActivity {
         textNome      = (TextView) findViewById(R.id.txvNome);
         textDescricao = (TextView) findViewById(R.id.txvDescricao);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.dificuldade_array, android.R.layout.simple_spinner_item);
@@ -52,11 +52,11 @@ public class NovaMissaoActivity extends AppCompatActivity {
                 missao.setNome(edNome.getText().toString());
                 missao.setDescricao(edDescricao.getText().toString());
                 //pegar dificuldade do spinner
-                missao.setDificuldade(/*spinner.getSelectedItem().toString()*/ 1);
+                missao.setDificuldade(Integer.parseInt(spinner.getSelectedItem().toString()));
                 if(! missaoDB.saveMissao(missao)){
                     Toast.makeText(NovaMissaoActivity.this,"Erro ao salvar misão: " + missao.getNome(), Toast.LENGTH_LONG).show();
                 }else{
-                    Toast.makeText(NovaMissaoActivity.this,"Missão Salva: " + missao.getNome(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(NovaMissaoActivity.this,"Missão Salva: " + missao.getNome() +" | Dificuladde: "+ missao.getDificuldade(), Toast.LENGTH_LONG).show();
                     //atualizar tela principal
                     NovaMissaoActivity.this.finish();
                 }

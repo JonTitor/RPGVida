@@ -47,8 +47,8 @@ public class MissaoDB extends SQLiteOpenHelper {
         try {
             ContentValues values = new ContentValues();
             values.put("nome", missao.getNome());
-            values.put("desc", missao.getNome());
-            values.put("dificuldade", missao.getNome());
+            values.put("desc", missao.getDescricao());
+            values.put("dificuldade", missao.getDificuldade());
 
             if (id != 0) {
                 String _id = String.valueOf(missao.getId());
