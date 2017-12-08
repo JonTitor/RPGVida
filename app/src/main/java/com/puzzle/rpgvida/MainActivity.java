@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.puzzle.rpgvida.Utilitarios.Utilitaria;
 import com.puzzle.rpgvida.db.MissaoDB;
+import com.puzzle.rpgvida.db.PerfilDB;
 
 import java.util.List;
 
@@ -31,14 +32,25 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         this.setInstance(this);
         setContentView(R.layout.activity_main);
 
+        PerfilDB perfilDB = new PerfilDB(this);
+
+//        if (){
+//            Intent myIntent = new Intent(MainActivity.this, CriarPerfilActivity.class);
+//            MainActivity.this.startActivity(myIntent);
+//
+//        }
+
+
 
         //Nivel main
         TextView txtNivel = (TextView) findViewById(R.id.txtNivel);
-        txtNivel.setText("NIVEL:" + Utilitaria.RetornaNivel(2000000000)); // pega nivel do banco
+        txtNivel.setText("NIVEL:" + Utilitaria.RetornaNivel(1)); // pega nivel do banco
 
         //Abre tela para novo cadastro de missoes
         Button btnNovo =(Button) findViewById(R.id.btnNovo);
@@ -54,14 +66,17 @@ public class MainActivity extends AppCompatActivity {
         //////////////////////////////
 
         //Abre tela para novo cadastro de perfil
-        Button btnPerfil =(Button) findViewById(R.id.btnPerfil);
+        Button btnPerfil = (Button) findViewById(R.id.btnPerfil);
         btnPerfil.setBackgroundResource(R.drawable.ic_face_black_36dp);
-//        btnNovo.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
+        btnPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iperfil = new Intent(MainActivity.this, PerfilActivity.class);
+                startActivity(iperfil);
+
+
+            }
+        });
         //////////////////////////////
 
         this.atualizaListView();
@@ -113,6 +128,8 @@ public class MainActivity extends AppCompatActivity {
                         missao.setFeito(true);
                         missaoDB.setMissaoFeito(missao);
                         MainActivity.this.atualizaListView();
+                        PerfilDB perfilDB = new PerfilDB(MainActivity.this);
+                        perfilDB.
                     }
                 });
 

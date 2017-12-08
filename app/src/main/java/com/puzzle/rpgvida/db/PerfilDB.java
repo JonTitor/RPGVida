@@ -48,8 +48,9 @@ public class PerfilDB extends SQLiteOpenHelper {
         try {
             ContentValues values = new ContentValues();
             values.put("nome", perfil.getNome());
-            values.put("desc", perfil.getNome());
-            values.put("dificuldade", perfil.getNome());
+            values.put("user", perfil.getUser());
+            values.put("senha", perfil.getSenha());
+            values.put("xp", perfil.getXp());
 
             if (id != 0) {
                 String _id = String.valueOf(perfil.getId());
@@ -58,7 +59,7 @@ public class PerfilDB extends SQLiteOpenHelper {
                 return true;
             } else {
                 values.put("feito", 0);
-                id = db.insert("missao", "", values);
+                id = db.insert("perfil", "", values);
                 return true;
             }
         } catch (Exception e){
@@ -71,40 +72,40 @@ public class PerfilDB extends SQLiteOpenHelper {
     /****
      * Validar função
      ****/
-    public Perfil login(Perfil perfil){
-        Perfil perfil2 =  new Perfil();
-        SQLiteDatabase db = getWritableDatabase();
-        String where = " user = ? and senha = ?";
-        String[] whereArgs = new String[] {
-                perfil.getUser(),
-                perfil.getSenha()
-        };
-        try {
-            Cursor c = db.query("perfil", null,where, whereArgs , null, null, null, null);
-            if (c.moveToFirst()) {
-                perfil2.setId(c.getLong(c.getColumnIndex("_id")));
-                perfil2.setNome(c.getString(c.getColumnIndex("nome")));
-                perfil2.setUser(c.getString(c.getColumnIndex("user")));
-                perfil2.setXp(c.getInt(c.getColumnIndex("xp")));
-                perfil2.setLogged(true);
-            }
-        }finally {
-            db.close();
-        }
+//    public Perfil login(Perfil perfil){
+//        Perfil perfil2 =  new Perfil();
+//        SQLiteDatabase db = getWritableDatabase();
+//        String where = " user = ? and senha = ?";
+//        String[] whereArgs = new String[] {
+//                perfil.getUser(),
+//                perfil.getSenha()
+//        };
+//        try {
+//            Cursor c = db.query("perfil", null,where, whereArgs , null, null, null, null);
+//            if (c.moveToFirst()) {
+//                perfil2.setId(c.getLong(c.getColumnIndex("_id")));
+//                perfil2.setNome(c.getString(c.getColumnIndex("nome")));
+//                perfil2.setUser(c.getString(c.getColumnIndex("user")));
+//                perfil2.setXp(c.getInt(c.getColumnIndex("xp")));
+//                perfil2.setLogged(true);
+//            }
+//        }finally {
+//            db.close();
+//        }
+//
+//        return perfil2;
+//    }
 
-        return perfil2;
-    }
-
-    public int delete(Perfil perfil) {
-        SQLiteDatabase db = getWritableDatabase();
-        try {
-            int count = db.delete("perfil", "_id=?", new String[]{String.valueOf(perfil.getId())});
-            Log.i(TAG, "Deletou [" + count + "] registro.");
-            return count;
-        } finally {
-            db.close();
-        }
-    }
+//    public int delete(Perfil perfil) {
+//        SQLiteDatabase db = getWritableDatabase();
+//        try {
+//            int count = db.delete("perfil", "_id=?", new String[]{String.valueOf(perfil.getId())});
+//            Log.i(TAG, "Deletou [" + count + "] registro.");
+//            return count;
+//        } finally {
+//            db.close();
+//        }
+//    }
 
     public List<Perfil> findAll() {
         SQLiteDatabase db = getWritableDatabase();
@@ -115,7 +116,7 @@ public class PerfilDB extends SQLiteOpenHelper {
             db.close();
         }
     }
-    // Lê o cursor e cria a lista de carros
+    //
     private List<Perfil> toList(Cursor c) {
         List<Perfil> perfils = new ArrayList<Perfil>();
         if (c.moveToFirst()) {
@@ -148,5 +149,23 @@ public class PerfilDB extends SQLiteOpenHelper {
             db.close();
         }
     }
+
+    public boolean hasPerfil(){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            Cursor c = db.rawQuery("SELECT * FROM perfil",null);
+            if (c.moveToFirst()) {
+                return true;
+            } else {
+                return false;
+            }
+        }finally{
+                db.close();
+            }
+
+
+
+    }
+
 
 }
